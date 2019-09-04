@@ -13,4 +13,8 @@ ADD [".vimrc-final", "/root/.vimrc"]
 ADD cleanup.sh /
 RUN ["bash", "/cleanup.sh"]
 
+# This is a hack that is out of order to avoid reimaging
+# the cached layers. Fix for Spring 2020.
+ADD [".bashrc-ssh", "/root/.bashrc"]
+
 ENTRYPOINT ["bash"]

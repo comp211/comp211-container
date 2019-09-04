@@ -131,3 +131,11 @@ if [ -f "/mnt/learncli/.ssh/config" ]; then
 fi
 
 chmod -R 600 ~/.ssh
+
+# Start SSH Agent
+if [ -f ~/.ssh/id_rsa ]; then
+    ssh-add -D >/dev/null 2>&1
+    ssh-agent -k >/dev/null 2>&1
+    eval `ssh-agent -s` >/dev/null
+    ssh-add >/dev/null
+fi       

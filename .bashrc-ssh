@@ -130,6 +130,7 @@ if [ -f "/mnt/learncli/.ssh/config" ]; then
     cp /mnt/learncli/.ssh/config ~/.ssh/config
 fi
 
+# Establish User-only Permissions on SSH directory
 chmod -R 600 ~/.ssh
 
 # Start SSH Agent

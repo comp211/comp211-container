@@ -17,4 +17,7 @@ RUN ["bash", "/cleanup.sh"]
 # the cached layers. Fix for Spring 2020.
 ADD [".bashrc-ssh", "/root/.bashrc"]
 
+# This is another hack to add example binaries
+ADD ["bin/*", "/usr/local/bin"]
+
 ENTRYPOINT ["bash"]

@@ -149,6 +149,6 @@ fi
 # Add host bin dir to path
 if [ ! -d "{$hostdir}/bin" ]
 then
-    mkdir -p "{$hostdir}/bin" 
+    mkdir -p "${hostdir}/bin" 
 fi
 export PATH="${PATH}:${hostdir}/bin"

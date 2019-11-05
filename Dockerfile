@@ -10,6 +10,11 @@ ADD setup-vim.sh /
 RUN ["bash", "/setup-vim.sh"]
 ADD [".vimrc-final", "/root/.vimrc"]
 
+# This is another hack that is out of order to avoid reimaging
+# the cached layers. Fix for Spring 2020
+ADD setup-etc.sh /
+RUN ["bash", "/setup-etc.sh"]
+
 ADD cleanup.sh /
 RUN ["bash", "/cleanup.sh"]
 

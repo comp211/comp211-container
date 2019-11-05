@@ -114,29 +114,41 @@ echo ""
 PS1="learncli$ "
 export TERM=xterm-256color
 
+hostdir="/mnt/learncli"
+
 # Install SSH keys
-# Necessitated by Docker Windows file Permission
-mkdir -p ~/.ssh
+# Copy SSH files to ~/.ssh from .ssh on host
+hostssh="${hostdir}/.ssh"
+if [ -d "${hostssh}" ]
+then
+    mkdir -p ~/.ssh
+    for file in ${hostssh}/*
+    do
+        cp "${file}" ~/.ssh
+    done
 
-if [ -f "/mnt/learncli/.ssh/id_rsa" ]; then
-    cp /mnt/learncli/.ssh/id_rsa ~/.ssh/id_rsa
+    # Establish User-only Permissions on SSH directory
+    chmod -R 600 ~/.ssh
+
+    # Start SSH Agent
+    if [ -f ~/.ssh/id_rsa ]; then
+        ssh-add -D >/dev/null 2>&1
+        ssh-agent -k >/dev/null 2>&1
+        eval `ssh-agent -s` >/dev/null
+        ssh-add >/dev/null
+    fi       
 fi
 
-if [ -f "/mnt/learncli/.ssh/id_rsa.pub" ]; then
-    cp /mnt/learncli/.ssh/id_rsa.pub ~/.ssh/id_rsa.pub
+# Add .bash_profile
+hostprofile="${hostdir}/.bash_profile"
+if [ -f "${hostprofile}" ]
+then
+    source "${hostprofile}"
 fi
 
-if [ -f "/mnt/learncli/.ssh/config" ]; then
-    cp /mnt/learncli/.ssh/config ~/.ssh/config
+# Add host bin dir to path
+if [ ! -d "{$hostdir}/bin" ]
+then
+    mkdir -p "{$hostdir}/bin" 
 fi
-
-# Establish User-only Permissions on SSH directory
-chmod -R 600 ~/.ssh
-
-# Start SSH Agent
-if [ -f ~/.ssh/id_rsa ]; then
-    ssh-add -D >/dev/null 2>&1
-    ssh-agent -k >/dev/null 2>&1
-    eval `ssh-agent -s` >/dev/null
-    ssh-add >/dev/null
-fi       
+export PATH="${PATH}:${hostdir}/bin"

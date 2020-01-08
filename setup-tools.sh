@@ -31,6 +31,8 @@ sudo apt-get install --no-install-recommends \
  graphviz \
  zip \
  htop \
+ tmux \
+ tree \
  linux-tools-common \
  linux-tools-4.15.0-29-generic \
  linux-tools-generic \
@@ -41,6 +43,7 @@ sudo apt-get install \
  nodejs \
  npm \
  clang \
+ default-jdk \
  -y
 
 sudo npm install -g typescript ts-node

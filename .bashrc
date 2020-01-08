@@ -113,3 +113,42 @@ echo ""
 
 PS1="learncli$ "
 export TERM=xterm-256color
+
+hostdir="/mnt/learncli"
+
+# Install SSH keys
+# Copy SSH files to ~/.ssh from .ssh on host
+hostssh="${hostdir}/.ssh"
+if [ -d "${hostssh}" ]
+then
+    mkdir -p ~/.ssh
+    for file in ${hostssh}/*
+    do
+        cp "${file}" ~/.ssh
+    done
+
+    # Establish User-only Permissions on SSH directory
+    chmod -R 600 ~/.ssh
+
+    # Start SSH Agent
+    if [ -f ~/.ssh/id_rsa ]; then
+        ssh-add -D >/dev/null 2>&1
+        ssh-agent -k >/dev/null 2>&1
+        eval `ssh-agent -s` >/dev/null
+        ssh-add >/dev/null
+    fi       
+fi
+
+# Add .bash_profile
+hostprofile="${hostdir}/.bash_profile"
+if [ -f "${hostprofile}" ]
+then
+    source "${hostprofile}"
+fi
+
+# Add host bin dir to path
+if [ ! -d "{$hostdir}/bin" ]
+then
+    mkdir -p "${hostdir}/bin" 
+fi
+export PATH="${PATH}:${hostdir}/bin"

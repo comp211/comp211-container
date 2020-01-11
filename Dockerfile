@@ -15,4 +15,8 @@ RUN ["bash", "/cleanup.sh"]
 
 ADD ["bin/*", "/usr/local/bin"]
 
+# Spring 2020 Kludge
+ADD ["locale-fix.sh", "/locale-fix.sh"]
+RUN ["/locale-fix.sh"]
+
 ENTRYPOINT ["bash"]

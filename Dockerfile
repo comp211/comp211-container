@@ -19,4 +19,7 @@ ADD ["bin/*", "/usr/local/bin"]
 ADD locale-fix.sh /
 RUN ["bash", "/locale-fix.sh"]
 
+ADD upgrade-npm.sh /
+RUN ["bash", "/upgrade-npm.sh"]
+
 ENTRYPOINT ["bash"]

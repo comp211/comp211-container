@@ -22,4 +22,7 @@ RUN ["bash", "/locale-fix.sh"]
 ADD upgrade-npm.sh /
 RUN ["bash", "/upgrade-npm.sh"]
 
+ADD [".vimrc-glogal-ycm", "/root/.vimrc"]
+ADD [".ycm_extra_conf.py", "/root/.ycm_extra_conf.py"]
+
 ENTRYPOINT ["bash"]

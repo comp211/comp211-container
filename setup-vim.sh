@@ -6,4 +6,5 @@ mkdir -p ~/.vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim -c 'PluginInstall' -c 'qa!'
 cd ~/.vim/bundle/YouCompleteMe/
-python3 install.py --clang-completer
+ls -laR
+sudo -u nobody python3 install.py --clang-completer

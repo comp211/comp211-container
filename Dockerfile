@@ -1,26 +1,70 @@
-FROM learncli/base:latest
+FROM ubuntu:22.04
 
-ADD setup-tools.sh /
-RUN ["bash", "/setup-tools.sh"]
+RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    	bc \
+	build-essential \
+	clang \	
+	cmake \
+	curl \
+	dc \
+	default-jdk \	
+	emacs \
+	g++ \	
+	gcc \
+	gdb \
+	git \
+	graphviz \
+	htop \	
+	libffi-dev \
+	libgtest-dev \
+	libpthread-stubs0-dev \	
+	libssl-dev \
+	linux-tools-common \
+	linux-tools-generic \
+	lmodern \	
+	make \
+	nodejs \
+	npm \
+	pandoc \	
+	python3 \
+	python3-dev \
+	python3-pip \
+	software-properties-common \	
+	texlive-latex-base \
+	texlive-latex-recommended \
+	texlive-fonts-recommended \
+	tmux \
+	tree \	
+	valgrind \	
+	vim \
+	wamerican \
+	zip \
+	&& apt-get -y autoremove && apt-get -y clean \
+	   && rm -rf /var/lib/apt/lists/*
+
+RUN npm install -g typescript ts-node
+RUN npm install -g npm@latest
 
 ADD [".bashrc", "/root/"]
 
-ADD [".vimrc-bootstrap", "/root/.vimrc"]
-ADD setup-vim.sh /
-RUN ["bash", "/setup-vim.sh"]
-ADD [".vimrc-final", "/root/.vimrc"]
+# Install vim and YouCompleteMe with clang completion
+# This must be done as a non-root user.  Sigh.
+# Insert vim simplicity of installation rhetoric here...
+RUN useradd -ms /bin/bash ramses
+USER ramses
+RUN mkdir -p ~/.vim/bundle
+ADD --chown=ramses .vimrc-bootstrap /home/ramses/.vimrc
+RUN git clone https://github.com/VundleVim/Vundle.vim.git /home/ramses/.vim/bundle/Vundle.vim
+RUN vim -c 'PluginInstall' -c 'qa!'
+RUN cd ~/.vim/bundle/YouCompleteMe/ && python3 install.py --clang-completer
 
-ADD cleanup.sh /
-RUN ["bash", "/cleanup.sh"]
+USER root
+RUN mv /home/ramses/.vim /root/.vim
+RUN chown -R root.root /root/.vim
+ADD [".vimrc-final", "/root/.vimrc"]
+ADD [".emacs", "/root/.emacs"]
 
 ADD ["bin/*", "/usr/local/bin"]
-
-# Spring 2020 Kludge
-ADD locale-fix.sh /
-RUN ["bash", "/locale-fix.sh"]
-
-ADD upgrade-npm.sh /
-RUN ["bash", "/upgrade-npm.sh"]
 
 ADD [".vimrc-global-ycm", "/root/.vimrc"]
 ADD [".ycm_extra_conf.py", "/root/.ycm_extra_conf.py"]

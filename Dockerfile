@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     	bc \
@@ -62,6 +62,7 @@ USER root
 RUN mv /home/ramses/.vim /root/.vim
 RUN chown -R root.root /root/.vim
 ADD [".vimrc-final", "/root/.vimrc"]
+ADD [".emacs", "/root/.emacs"]
 
 ADD ["bin/*", "/usr/local/bin"]
 

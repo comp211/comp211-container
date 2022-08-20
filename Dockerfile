@@ -23,6 +23,9 @@ RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get
 	linux-tools-generic \
 	lmodern \	
 	make \
+	man-db \
+	manpages \
+	manpages-dev \
 	nodejs \
 	npm \
 	pandoc \	

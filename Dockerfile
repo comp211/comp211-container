@@ -21,7 +21,8 @@ RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get
 	libssl-dev \
 	linux-tools-common \
 	linux-tools-generic \
-	lmodern \	
+	lmodern \
+	locales \
 	make \
 	man-db \
 	manpages \
@@ -71,5 +72,11 @@ ADD ["bin/*", "/usr/local/bin"]
 
 ADD [".vimrc-global-ycm", "/root/.vimrc"]
 ADD [".ycm_extra_conf.py", "/root/.ycm_extra_conf.py"]
+
+# Fix the locale for the manual pages
+RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+RUN echo "LANG=en_US.UTF-8" > /etc/locale.conf
+RUN locale-gen en_US.UTF-8
 
 ENTRYPOINT ["bash"]

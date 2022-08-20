@@ -30,7 +30,6 @@ RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get
 	python3-dev \
 	python3-pip \
 	software-properties-common \	
-	sudo \
 	texlive-latex-base \
 	texlive-latex-recommended \
 	texlive-fonts-recommended \
@@ -44,21 +43,27 @@ RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get
 	   && rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g typescript ts-node
+RUN npm install -g npm@latest
 
 ADD [".bashrc", "/root/"]
 
-ADD [".vimrc-bootstrap", "/root/.vimrc"]
-#ADD setup-vim.sh /
-#RUN ["bash", "/setup-vim.sh"]
+# Install vim and YouCompleteMe with clang completion
+# This must be done as a non-root user.  Sigh.
+# Insert vim simplicity of installation rhetoric here...
+RUN useradd -ms /bin/bash ramses
+USER ramses
+RUN mkdir -p ~/.vim/bundle
+ADD --chown=ramses .vimrc-bootstrap /home/ramses/.vimrc
+RUN git clone https://github.com/VundleVim/Vundle.vim.git /home/ramses/.vim/bundle/Vundle.vim
+RUN vim -c 'PluginInstall' -c 'qa!'
+RUN cd ~/.vim/bundle/YouCompleteMe/ && python3 install.py --clang-completer
+
+USER root
+RUN mv /home/ramses/.vim /root/.vim
+RUN chown -R root.root /root/.vim
 ADD [".vimrc-final", "/root/.vimrc"]
 
-ADD cleanup.sh /
-RUN ["bash", "/cleanup.sh"]
-
 ADD ["bin/*", "/usr/local/bin"]
-
-ADD upgrade-npm.sh /
-RUN ["bash", "/upgrade-npm.sh"]
 
 ADD [".vimrc-global-ycm", "/root/.vimrc"]
 ADD [".ycm_extra_conf.py", "/root/.ycm_extra_conf.py"]

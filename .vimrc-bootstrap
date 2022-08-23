@@ -1,7 +1,7 @@
 set nocompatible
 
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=/home/ramses/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'airblade/vim-gitgutter'
@@ -21,3 +21,5 @@ set expandtab
 set number
 set t_u7= " Weird workaround
 set t_RV=
+
+set encoding=utf-8 " For YouCompleteMe

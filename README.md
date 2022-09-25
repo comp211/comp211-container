@@ -12,5 +12,5 @@ For more detailed output, use:
 
 ## Push to dockerhub
 
-Dockerhub is configured to automatically build upon a push to the matser
-branch.
+Dockerhub is configured to automatically build and update the
+`comp530:latest` tag upon a push to the master branch.

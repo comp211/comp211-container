@@ -12,4 +12,5 @@ For more detailed output, use:
 
 ## Push to dockerhub
 
-Write me...
+Dockerhub is configured to automatically build upon a push to the matser
+branch.

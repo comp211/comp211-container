@@ -5,9 +5,7 @@
 (global-set-key [kp-delete] 'delete-char)
 
 ;; Turn on font-lock mode for Emacs
-(cond ((not running-xemacs)
-       (global-font-lock-mode t)
-))
+(global-font-lock-mode t)
 
 ;; Visual feedback on selections
 (setq-default transient-mark-mode t)

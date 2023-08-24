@@ -3,21 +3,21 @@ FROM ubuntu:22.04
 RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     	bc \
 	build-essential \
-	clang \	
+	clang \
 	cmake \
 	curl \
 	dc \
-	default-jdk \	
+	default-jdk \
 	emacs \
-	g++ \	
+	g++ \
 	gcc \
 	gdb \
 	git \
 	graphviz \
-	htop \	
+	htop \
 	libffi-dev \
 	libgtest-dev \
-	libpthread-stubs0-dev \	
+	libpthread-stubs0-dev \
 	libssl-dev \
 	linux-tools-common \
 	linux-tools-generic \
@@ -29,17 +29,17 @@ RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get
 	manpages-dev \
 	nodejs \
 	npm \
-	pandoc \	
+	pandoc \
 	python3 \
 	python3-dev \
 	python3-pip \
-	software-properties-common \	
+	software-properties-common \
 	texlive-latex-base \
 	texlive-latex-recommended \
 	texlive-fonts-recommended \
 	tmux \
-	tree \	
-	valgrind \	
+	tree \
+	valgrind \
 	vim \
 	wamerican \
 	zip \
@@ -47,7 +47,6 @@ RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get
 	   && rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g typescript ts-node
-RUN npm install -g npm@latest
 
 ADD [".bashrc", "/root/"]
 

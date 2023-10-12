@@ -48,6 +48,8 @@ RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get
 
 RUN npm install -g typescript ts-node
 
+RUN pip3 install subprocess32 gradescope-utils
+
 ADD [".bashrc", "/root/"]
 
 # Install vim and YouCompleteMe with clang completion

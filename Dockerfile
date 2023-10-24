@@ -55,16 +55,16 @@ ADD [".bashrc", "/root/"]
 # Install vim and YouCompleteMe with clang completion
 # This must be done as a non-root user.  Sigh.
 # Insert vim simplicity of installation rhetoric here...
-RUN useradd -ms /bin/bash ramses
-USER ramses
+RUN useradd -ms /bin/bash rameses
+USER rameses
 RUN mkdir -p ~/.vim/bundle
-ADD --chown=ramses .vimrc-bootstrap /home/ramses/.vimrc
-RUN git clone https://github.com/VundleVim/Vundle.vim.git /home/ramses/.vim/bundle/Vundle.vim
+ADD --chown=rameses .vimrc-bootstrap /home/rameses/.vimrc
+RUN git clone https://github.com/VundleVim/Vundle.vim.git /home/rameses/.vim/bundle/Vundle.vim
 RUN vim -c 'PluginInstall' -c 'qa!'
 RUN cd ~/.vim/bundle/YouCompleteMe/ && python3 install.py --clang-completer
 
 USER root
-RUN mv /home/ramses/.vim /root/.vim
+RUN mv /home/rameses/.vim /root/.vim
 RUN chown -R root.root /root/.vim
 ADD [".vimrc-final", "/root/.vimrc"]
 ADD [".emacs", "/root/.emacs"]

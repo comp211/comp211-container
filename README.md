@@ -5,11 +5,15 @@ COMP 211, COMP 530, and COMP 730.
 
 ## Building from scratch
 
-`docker build .`
+`docker buildx build .`
 
 For more detailed output, use:
 
-`docker build . --progress=plan`
+`docker buildx build . --progress=plain`
+
+You can confirm the built image is for multiple architectures using
+
+`docker buildx inspect`
 
 ## Push to dockerhub
 

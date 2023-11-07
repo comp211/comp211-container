@@ -13,16 +13,10 @@ echo "Dockerfile Path/Name: ${DOCKERFILE_PATH}"
 BUILDPLATFORM="${BUILDPLATFORM:-"linux/amd64,linux/arm64"}"
 echo "Architectures=${BUILDPLATFORM}"
 
-docker images
-docker image rm -f ${IMAGE_NAME}
-docker images
-
 # Ok to push, since a test build has 'this' tag, which is harmless
 docker buildx build --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" --build-arg VCS_REF="$(git rev-parse --short HEAD)" --tag "${IMAGE_NAME}" --platform "${BUILDPLATFORM}" --file "${DOCKERFILE_PATH}" --push .
 
 # Confirm the build really was both archs
 #docker buildx inspect
-
-docker images
 
 echo "### RUN build END"

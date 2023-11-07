@@ -18,4 +18,6 @@ docker buildx build --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" --
 # Confirm the build really was both archs
 docker buildx inspect
 
+docker images
+
 echo "### RUN build END"

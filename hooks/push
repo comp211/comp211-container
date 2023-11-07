@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -ex
+
+# Check that we can still see the image, then figure out how to push
+docker images

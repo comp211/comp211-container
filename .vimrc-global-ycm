@@ -14,6 +14,7 @@ Plugin 'rust-lang/rust.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'morhetz/gruvbox'
 Plugin 'itchyny/lightline.vim'
+Plugin 'rhysd/vim-clang-format'
 call vundle#end()
 
 filetype plugin indent on
@@ -41,4 +42,15 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:clang_format#code_style = "chromium" " The only predefined style with PointerAlignment Left
+let g:clang_format#style_options = {
+    \ "IndentWidth" : 4,
+    \ "ObjCBlockIndentWidth": 4}
 
+" Map leader key <Leader> to Space
+let mapleader = " "
+" map to <Leader>cf in C++ code
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+" Toggle auto formatting:
+nmap <Leader>C :ClangFormatAutoToggle<CR>

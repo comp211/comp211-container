@@ -1,9 +1,10 @@
 FROM ubuntu:22.04
 
 RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    	bc \
+	bc \
 	build-essential \
 	clang \
+	clang-format \
 	cmake \
 	curl \
 	dc \
@@ -44,9 +45,9 @@ RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get
 	wamerican \
 	zip \
 	&& apt-get -y autoremove && apt-get -y clean \
-	   && rm -rf /var/lib/apt/lists/*
+	&& rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g typescript ts-node
+RUN npm install -g typescript ts-node tldr
 
 RUN pip3 install subprocess32 gradescope-utils
 

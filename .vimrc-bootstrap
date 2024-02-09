@@ -12,6 +12,7 @@ Plugin 'rust-lang/rust.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'morhetz/gruvbox'
 Plugin 'itchyny/lightline.vim'
+Plugin 'rhysd/vim-clang-format'
 call vundle#end()
 
 filetype plugin indent on

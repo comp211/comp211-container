@@ -1,9 +1,10 @@
 FROM ubuntu:22.04
 
 RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    	bc \
+	bc \
 	build-essential \
 	clang \
+	clang-format \
 	cmake \
 	curl \
 	dc \
@@ -44,9 +45,9 @@ RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get
 	wamerican \
 	zip \
 	&& apt-get -y autoremove && apt-get -y clean \
-	   && rm -rf /var/lib/apt/lists/*
+	&& rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g typescript ts-node
+RUN npm install -g typescript ts-node tldr
 
 RUN pip3 install subprocess32 gradescope-utils
 
@@ -79,5 +80,7 @@ RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 RUN echo "LANG=en_US.UTF-8" > /etc/locale.conf
 RUN locale-gen en_US.UTF-8
+
+RUN tldr --update
 
 CMD ["bash"]

@@ -1,5 +1,7 @@
 # UNC System Course Sequence Docker Image
 
+DO NOT MERGE ME
+
 This docker image defines the environment for courses at UNC including
 COMP 211, COMP 530, and COMP 730.
 

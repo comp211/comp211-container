@@ -4,4 +4,8 @@
 
 set -ex
 
+echo "### Really RUNing push. ###"
+
+docker image push ${IMAGE_NAME}
+
 echo "### RUN push: This has already been done by buildx. ###"

@@ -9,11 +9,11 @@ set -ex
 
 cat /etc/hosts
 
-# For this script, set the repo to 0.0.0.0
+# For this script, set the repo to 127.0.0.1
 OLD_IMAGE_NAME=${IMAGE_NAME}
-DOCKER_REPO=`echo ${DOCKER_REPO} | sed -e "s/index.docker.io/0.0.0.0:5000/"`
-DOCKER_IMAGE=`echo ${DOCKER_IMAGE} | sed -e "s/index.docker.io/0.0.0.0:5000/"`
-IMAGE_NAME=`echo ${IMAGE_NAME} | sed -e "s/index.docker.io/0.0.0.0:5000/"`
+DOCKER_REPO=`echo ${DOCKER_REPO} | sed -e "s/index.docker.io/127.0.0.1:5000/"`
+DOCKER_IMAGE=`echo ${DOCKER_IMAGE} | sed -e "s/index.docker.io/127.0.0.1:5000/"`
+IMAGE_NAME=`echo ${IMAGE_NAME} | sed -e "s/index.docker.io/127.0.0.1:5000/"`
 
 echo "### RUN build START: using buildx ###"
 echo "Image Name: ${IMAGE_NAME} (Repo: ${DOCKER_REPO}, Old Repo: ${OLD_DOCKER_REPO}, Tag: ${DOCKER_TAG})"
@@ -25,9 +25,8 @@ echo "Architectures=${BUILDPLATFORM}"
 echo "Starting registry"
 
 # Start the local registry
-docker run -d -p 5000:5000 --restart=always --name registry registry:2
+docker run -d -p 127.0.0.1:5000:5000 --restart=always --name registry registry:2
 
-netstat -nap | grep 
 
 docker image ls
 

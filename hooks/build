@@ -5,8 +5,7 @@
 
 # '--push' shorthand for '--output=type=registry'
 
-#set -ex
-set -x
+set -ex
 
 cat /etc/hosts
 

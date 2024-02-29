@@ -8,9 +8,10 @@
 set -ex
 
 # For this script, set the repo to localhost
-OLD_DOCKER_REPO=${DOCKER_REPO}
+OLD_IMAGE_NAME=${IMAGE_NAME}
 DOCKER_REPO=`echo ${DOCKER_REPO} | sed -e "s/index.docker.io/localhost:5000/"`
 DOCKER_IMAGE=`echo ${DOCKER_IMAGE} | sed -e "s/index.docker.io/localhost:5000/"`
+IMAGE_NAME=`echo ${IMAGE_NAME} | sed -e "s/index.docker.io/localhost:5000/"`
 
 echo "### RUN build START: using buildx ###"
 echo "Image Name: ${IMAGE_NAME} (Repo: ${DOCKER_REPO}, Old Repo: ${OLD_DOCKER_REPO}, Tag: ${DOCKER_TAG})"
@@ -23,7 +24,7 @@ echo "Architectures=${BUILDPLATFORM}"
 docker buildx build --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" --build-arg VCS_REF="$(git rev-parse --short HEAD)" --tag "${IMAGE_NAME}" --platform "${BUILDPLATFORM}" --file "${DOCKERFILE_PATH}" --push .
 
 # Tag the local version so that we can push in the push script, should we choose
-docker tag ${DOCKER_REPO}:${DOCKER_TAG} ${OLD_DOCKER_REPO}:${DOCKER_TAG}
+docker tag ${IMAGE_NAME} ${OLD_IMAGE_NAME}
 
 # Confirm the build really was both archs
 #docker buildx inspect

@@ -5,7 +5,8 @@
 
 # '--push' shorthand for '--output=type=registry'
 
-set -ex
+#set -ex
+set -x
 
 cat /etc/hosts
 
@@ -29,6 +30,7 @@ docker run -d -p 127.0.0.1:5000:5000 --restart=always --name registry registry:2
 
 
 docker image ls
+docker ps
 
 echo "Checking for registry"
 
@@ -36,6 +38,10 @@ docker ps | grep registry
 
 # Go ahead and push to the local registry
 docker buildx build --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" --build-arg VCS_REF="$(git rev-parse --short HEAD)" --tag "${IMAGE_NAME}" --platform "${BUILDPLATFORM}" --file "${DOCKERFILE_PATH}" --push .
+
+docker image ls
+docker ps
+
 
 # Tag the local version so that we can push in the push script, should we choose
 docker tag ${IMAGE_NAME} ${OLD_IMAGE_NAME}

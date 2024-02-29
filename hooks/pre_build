@@ -23,6 +23,4 @@ docker run --rm --privileged tonistiigi/binfmt --install all
 docker buildx create --use --name multiarchbuilder
 #docker buildx inspect --bootstrap
 
-docker run -d -p 5000:5000 --rm --name registry registry:2
-
 echo "### RUN pre_build END ###"

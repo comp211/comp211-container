@@ -7,6 +7,8 @@
 
 set -ex
 
+cat /etc/hosts
+
 # For this script, set the repo to localhost
 OLD_IMAGE_NAME=${IMAGE_NAME}
 DOCKER_REPO=`echo ${DOCKER_REPO} | sed -e "s/index.docker.io/localhost:5000/"`

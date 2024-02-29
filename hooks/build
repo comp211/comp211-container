@@ -20,10 +20,6 @@ echo "Dockerfile Path/Name: ${DOCKERFILE_PATH}"
 BUILDPLATFORM="${BUILDPLATFORM:-"linux/amd64"}"
 echo "Architectures=${BUILDPLATFORM}"
 
-echo "Checking for running registry"
-
-docker ps | grep registry
-
 echo "Starting registry"
 
 # Start the local registry

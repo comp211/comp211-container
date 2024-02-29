@@ -3,51 +3,51 @@ FROM ubuntu:22.04
 RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y bc
 
 #RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-	bc \
-	build-essential \
-	clang \
-	clang-format \
-	cmake \
-	curl \
-	dc \
-	default-jdk \
-	emacs \
-	g++ \
-	gcc \
-	gdb \
-	git \
-	graphviz \
-	htop \
-	libffi-dev \
-	libgtest-dev \
-	libpthread-stubs0-dev \
-	libssl-dev \
-	linux-tools-common \
-	linux-tools-generic \
-	lmodern \
-	locales \
-	make \
-	man-db \
-	manpages \
-	manpages-dev \
-	nodejs \
-	npm \
-	pandoc \
-	python3 \
-	python3-dev \
-	python3-pip \
-	software-properties-common \
-	texlive-latex-base \
-	texlive-latex-recommended \
-	texlive-fonts-recommended \
-	tmux \
-	tree \
-	valgrind \
-	vim \
-	wamerican \
-	zip \
-	&& apt-get -y autoremove && apt-get -y clean \
-	&& rm -rf /var/lib/apt/lists/*
+#	bc \
+#	build-essential \
+#	clang \
+#	clang-format \
+#	cmake \
+#	curl \
+#	dc \
+#	default-jdk \
+#	emacs \
+#	g++ \
+#	gcc \
+	# gdb \
+	# git \
+	# graphviz \
+	# htop \
+	# libffi-dev \
+	# libgtest-dev \
+	# libpthread-stubs0-dev \
+	# libssl-dev \
+	# linux-tools-common \
+	# linux-tools-generic \
+	# lmodern \
+	# locales \
+	# make \
+	# man-db \
+	# manpages \
+	# manpages-dev \
+	# nodejs \
+	# npm \
+	# pandoc \
+	# python3 \
+	# python3-dev \
+	# python3-pip \
+	# software-properties-common \
+	# texlive-latex-base \
+	# texlive-latex-recommended \
+	# texlive-fonts-recommended \
+	# tmux \
+	# tree \
+	# valgrind \
+	# vim \
+	# wamerican \
+	# zip \
+	# && apt-get -y autoremove && apt-get -y clean \
+	# && rm -rf /var/lib/apt/lists/*
 
 #RUN npm install -g typescript ts-node tldr
 

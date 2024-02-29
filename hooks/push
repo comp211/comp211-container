@@ -7,9 +7,6 @@ set -ex
 echo "### RUN push START ###"
 echo "Image Name: ${IMAGE_NAME} (Repo: ${DOCKER_REPO}, Tag: ${DOCKER_TAG})"
 
-echo "Checking for registry"
-docker ps | grep registry
-
 docker image push ${DOCKER_IMAGE}
 
 echo "### RUN push START ###"

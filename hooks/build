@@ -37,7 +37,13 @@ echo "Checking for registry"
 docker ps | grep registry
 
 # Go ahead and push to the local registry
-docker buildx build --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" --build-arg VCS_REF="$(git rev-parse --short HEAD)" --tag "${IMAGE_NAME}" --platform "${BUILDPLATFORM}" --file "${DOCKERFILE_PATH}" --push .
+docker buildx build --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" --build-arg VCS_REF="$(git rev-parse --short HEAD)" --tag "${IMAGE_NAME}" --platform "${BUILDPLATFORM}" --file "${DOCKERFILE_PATH}" -o docker,dest=awesome.img .
+
+docker image ls
+docker ps
+
+
+docker load --input awesome.img
 
 docker image ls
 docker ps

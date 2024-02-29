@@ -1,6 +1,8 @@
 FROM ubuntu:22.04
 
-RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y bc
+#RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y bc
+
+RUN echo hello
 
 #RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 #	bc \

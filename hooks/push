@@ -4,4 +4,9 @@
 
 set -ex
 
-echo "### RUN push: This has already been done by buildx. ###"
+echo "### RUN push START ###"
+echo "Image Name: ${IMAGE_NAME} (${DOCKER_IMAGE}) (Repo: ${DOCKER_REPO}, Tag: ${DOCKER_TAG})"
+
+docker image push ${IMAGE_NAME}
+
+echo "### RUN push START ###"

@@ -38,8 +38,8 @@ docker run -d -p 127.0.0.1:5000:5000 --rm --name registry registry:2
 # just fine on a PR from a local branch.
 docker buildx build --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" --build-arg VCS_REF="$(git rev-parse --short HEAD)" --tag "${IMAGE_NAME}" --platform "${BUILDPLATFORM}" --file "${DOCKERFILE_PATH}" -o type=tar,dest=awesome.tar .
 
-# Load the image into the local registry
-docker load --input awesome.tar
+# Import the image into the local registry
+docker import awesome.tar ${IMAGE_NAME}
 
 # Tag the local version so that we can push in the push script, should we choose
 #docker tag ${IMAGE_NAME} ${OLD_IMAGE_NAME}

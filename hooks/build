@@ -10,8 +10,7 @@ set -ex
 echo "### RUN build START: using buildx ###"
 echo "Image Name: ${IMAGE_NAME} (${DOCKER_IMAGE}) (Repo: ${DOCKER_REPO}, Tag: ${DOCKER_TAG})"
 echo "Dockerfile Path/Name: ${DOCKERFILE_PATH}"
-#BUILDPLATFORM="${BUILDPLATFORM:-"linux/amd64,linux/arm64"}"
-BUILDPLATFORM="${BUILDPLATFORM:-"linux/amd64"}"
+BUILDPLATFORM="${BUILDPLATFORM:-"linux/amd64,linux/arm64"}"
 echo "Architectures=${BUILDPLATFORM}"
 
 echo "Starting registry"
@@ -19,14 +18,29 @@ echo "Starting registry"
 # Start the local registry
 docker run -d -p 127.0.0.1:5000:5000 --rm --name registry registry:2
 
-# Go ahead and push to the local registry
+# Build
+# DEP 2/29/24: Pushing to the local registry can fail for PR from a forked repo.
+# The original script I copied does the push to docker hub here, and makes
+# the push script a no-op.  This is not ideal, but harmless with the 'this' tag.
+#
+# Unfortunately, when someone creates a PR from a forked repo, this
+# push fails with a credential issue.  Probably a good idea for
+# security, but also causes the build test to fail.
+#
+# I tried pushing to a repo on localhost, but this also fails for
+# strange reasons (at least as of today).
+# 
+# Fortunately, for some reason the build test works if we bounce through a file
+# (awesome.img).  
+#
+# If anyone wants to change this in the future, be aware during
+# testing.  The old behavior (pushing directly to docker hub) works
+# just fine on a PR from a local branch.
+
 docker buildx build --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" --build-arg VCS_REF="$(git rev-parse --short HEAD)" --tag "${IMAGE_NAME}" --platform "${BUILDPLATFORM}" --file "${DOCKERFILE_PATH}" -o type=docker,dest=awesome.img .
 
-docker image ls
-
+# Load the image into the local registry
 docker load --input awesome.img
-
-docker image ls
 
 # Tag the local version so that we can push in the push script, should we choose
 #docker tag ${IMAGE_NAME} ${OLD_IMAGE_NAME}

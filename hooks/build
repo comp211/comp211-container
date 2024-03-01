@@ -7,14 +7,8 @@
 
 set -ex
 
-# For this script, set the repo to 127.0.0.1
-#OLD_IMAGE_NAME=${IMAGE_NAME}
-#DOCKER_REPO=`echo ${DOCKER_REPO} | sed -e "s/index.docker.io/127.0.0.1:5000/"`
-#DOCKER_IMAGE=`echo ${DOCKER_IMAGE} | sed -e "s/index.docker.io/127.0.0.1:5000/"`
-#IMAGE_NAME=`echo ${IMAGE_NAME} | sed -e "s/index.docker.io/127.0.0.1:5000/"`
-
 echo "### RUN build START: using buildx ###"
-echo "Image Name: ${IMAGE_NAME} (Repo: ${DOCKER_REPO}, Old Repo: ${OLD_DOCKER_REPO}, Tag: ${DOCKER_TAG})"
+echo "Image Name: ${IMAGE_NAME} (${DOCKER_IMAGE)) (Repo: ${DOCKER_REPO}, Tag: ${DOCKER_TAG})"
 echo "Dockerfile Path/Name: ${DOCKERFILE_PATH}"
 #BUILDPLATFORM="${BUILDPLATFORM:-"linux/amd64,linux/arm64"}"
 BUILDPLATFORM="${BUILDPLATFORM:-"linux/amd64"}"
@@ -23,7 +17,7 @@ echo "Architectures=${BUILDPLATFORM}"
 echo "Starting registry"
 
 # Start the local registry
-docker run -d -p 127.0.0.1:5000:5000 --restart=always --name registry registry:2
+docker run -d -p 127.0.0.1:5000:5000 --rm --name registry registry:2
 
 # Go ahead and push to the local registry
 docker buildx build --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" --build-arg VCS_REF="$(git rev-parse --short HEAD)" --tag "${IMAGE_NAME}" --platform "${BUILDPLATFORM}" --file "${DOCKERFILE_PATH}" -o type=docker,dest=awesome.img .
@@ -36,9 +30,6 @@ docker image ls
 
 # Tag the local version so that we can push in the push script, should we choose
 #docker tag ${IMAGE_NAME} ${OLD_IMAGE_NAME}
-
-#docker image ls
-
 
 # Confirm the build really was both archs
 #docker buildx inspect

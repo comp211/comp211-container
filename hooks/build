@@ -25,6 +25,8 @@ echo "Starting registry"
 # Start the local registry
 docker run --net host -d -p 5000:5000 --rm --name registry registry:2
 
+ss -tulw
+
 #docker network ls
 #docker network inspect mynet -v
 

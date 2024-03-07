@@ -5,7 +5,7 @@
 
 # '--push' shorthand for '--output=type=registry'
 
-set -ex
+set -x
 
 # DEP 2/29/24: Pushing to the local registry can fail for PR from a forked repo.
 # The original script I copied does the push to docker hub here, and makes
@@ -45,6 +45,8 @@ docker buildx build --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" --
 
 # Tag the local version so that we can push in the push script, should we choose
 docker tag ${IMAGE_NAME} ${OLD_IMAGE_NAME}
+
+docker logs -f registry
 
 # Confirm the build really was both archs
 #docker buildx inspect

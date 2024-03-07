@@ -16,7 +16,7 @@ echo "Architectures=${BUILDPLATFORM}"
 echo "Starting registry"
 
 # Start the local registry
-docker run -d -p 127.0.0.1:5000:5000 --rm --name registry registry:2
+docker run -d -p 5000:5000 --rm --name registry registry:2
 
 # Build
 # DEP 2/29/24: Pushing to the local registry can fail for PR from a forked repo.
@@ -29,17 +29,17 @@ docker run -d -p 127.0.0.1:5000:5000 --rm --name registry registry:2
 #
 # I tried pushing to a repo on localhost, but this also fails for
 # strange reasons (at least as of today).
-# 
+#
 # Fortunately, for some reason the build test works if we bounce through a file
-# (awesome.tar).  
+# (awesome.tar).
 #
 # If anyone wants to change this in the future, be aware during
 # testing.  The old behavior (pushing directly to docker hub) works
 # just fine on a PR from a local branch.
-docker buildx build --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" --build-arg VCS_REF="$(git rev-parse --short HEAD)" --tag "${IMAGE_NAME}" --platform "${BUILDPLATFORM}" --file "${DOCKERFILE_PATH}" -o type=tar,dest=awesome.tar .
+docker buildx build --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" --build-arg VCS_REF="$(git rev-parse --short HEAD)" --tag "${IMAGE_NAME}" --platform "${BUILDPLATFORM}" --file "${DOCKERFILE_PATH}" --push .
 
 # Import the image into the local registry
-docker import awesome.tar ${IMAGE_NAME}
+#docker import awesome.tar ${IMAGE_NAME}
 
 # Tag the local version so that we can push in the push script, should we choose
 #docker tag ${IMAGE_NAME} ${OLD_IMAGE_NAME}

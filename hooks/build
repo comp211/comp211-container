@@ -25,6 +25,9 @@ echo "Starting registry"
 # Start the local registry
 docker run --net mynet --name repository -d -p 5000:5000 --rm --name registry registry:2
 
+docker network ls
+docker network inspect mynet -v
+
 # Build
 # DEP 2/29/24: Pushing to the local registry can fail for PR from a forked repo.
 # The original script I copied does the push to docker hub here, and makes

@@ -27,15 +27,6 @@ DOCKER_REPO=`echo ${DOCKER_REPO} | sed -e "s/index.docker.io/localhost:5000/"`
 DOCKER_IMAGE=`echo ${DOCKER_IMAGE} | sed -e "s/index.docker.io/localhost:5000/"`
 IMAGE_NAME=`echo ${IMAGE_NAME} | sed -e "s/index.docker.io/localhost:5000/"`
 
-docker ps
-docker images
-
-cat /etc/hosts
-
-sudo apt-get install net-utils
-
-sudo netstat -nap
-
 echo "### RUN build START: using buildx ###"
 echo "Image Name: ${IMAGE_NAME} (${DOCKER_IMAGE}) (Repo: ${DOCKER_REPO}, Tag: ${DOCKER_TAG})"
 echo "Dockerfile Path/Name: ${DOCKERFILE_PATH}"
@@ -46,6 +37,13 @@ echo "Starting registry"
 
 # Start the local registry
 docker run --net host -d --rm --name registry registry:2
+
+docker ps
+docker images
+
+cat /etc/hosts
+
+whoami
 
 # Build
 docker buildx build --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" --build-arg VCS_REF="$(git rev-parse --short HEAD)" --tag "${IMAGE_NAME}" --platform "${BUILDPLATFORM}" --file "${DOCKERFILE_PATH}" --push .

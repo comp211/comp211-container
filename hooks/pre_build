@@ -11,11 +11,15 @@ echo "### RUN pre_build START: QEMU and buildx ###"
 #export DOCKER_CLI_EXPERIMENTAL=enabled
 #export DOCKER_BUILDKIT=1
 
+echo "Creating a network"
+
+docker network create mynet
+
 # need binfmt-support and qemu-user-static
 #apt-get update && apt-get install -y qemu-user-static binfmt-support
 #docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 #docker run --rm --privileged multiarch/qemu-user-static:register --reset
-docker run --rm --privileged tonistiigi/binfmt --install all
+docker run --net mynet --rm --privileged tonistiigi/binfmt --install all
 
 # docker buildx settings
 #docker buildx create --name multiarchbuilder

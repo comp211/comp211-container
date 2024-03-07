@@ -48,6 +48,8 @@ docker tag ${IMAGE_NAME} ${OLD_IMAGE_NAME}
 
 docker logs -f registry
 
+docker logs -f multiarchbuilder
+
 # Confirm the build really was both archs
 #docker buildx inspect
 

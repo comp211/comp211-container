@@ -8,10 +8,10 @@
 set -ex
 
 # For this script, set the repo to repository
-OLD_IMAGE_NAME=${IMAGE_NAME}
-DOCKER_REPO=`echo ${DOCKER_REPO} | sed -e "s/index.docker.io/repository:5000/"`
-DOCKER_IMAGE=`echo ${DOCKER_IMAGE} | sed -e "s/index.docker.io/repository:5000/"`
-IMAGE_NAME=`echo ${IMAGE_NAME} | sed -e "s/index.docker.io/repository:5000/"`
+#OLD_IMAGE_NAME=${IMAGE_NAME}
+#DOCKER_REPO=`echo ${DOCKER_REPO} | sed -e "s/index.docker.io/repository:5000/"`
+#DOCKER_IMAGE=`echo ${DOCKER_IMAGE} | sed -e "s/index.docker.io/repository:5000/"`
+#IMAGE_NAME=`echo ${IMAGE_NAME} | sed -e "s/index.docker.io/repository:5000/"`
 
 echo "### RUN build START: using buildx ###"
 echo "Image Name: ${IMAGE_NAME} (${DOCKER_IMAGE}) (Repo: ${DOCKER_REPO}, Tag: ${DOCKER_TAG})"
@@ -23,10 +23,10 @@ echo "Architectures=${BUILDPLATFORM}"
 echo "Starting registry"
 
 # Start the local registry
-docker run --net mynet --name repository -d -p 5000:5000 --rm --name registry registry:2
+docker run --net host --name repository -d -p 5000:5000 --rm --name registry registry:2
 
-docker network ls
-docker network inspect mynet -v
+#docker network ls
+#docker network inspect mynet -v
 
 # Build
 # DEP 2/29/24: Pushing to the local registry can fail for PR from a forked repo.

@@ -5,7 +5,7 @@
 
 # '--push' shorthand for '--output=type=registry'
 
-set -ex
+set -x
 
 # For this script, set the repo to 127.0.0.1
 OLD_IMAGE_NAME=${IMAGE_NAME}
@@ -25,7 +25,8 @@ echo "Starting registry"
 # Start the local registry
 docker run --net host -d -p 5000:5000 --rm --name registry registry:2
 
-ss -tulw
+lsof -i -P -n | grep LISTEN
+netstat -tulpn | grep LISTEN
 
 #docker network ls
 #docker network inspect mynet -v

@@ -33,17 +33,16 @@ echo "Dockerfile Path/Name: ${DOCKERFILE_PATH}"
 BUILDPLATFORM="${BUILDPLATFORM:-"linux/amd64,linux/arm64"}"
 echo "Architectures=${BUILDPLATFORM}"
 
-echo "Starting registry"
-
-# Start the local registry
-docker run --net host -d --rm --name registry registry:2
-
 docker ps
 docker images
 
 cat /etc/hosts
 
 whoami
+
+apt-get install net-tools
+
+netstat -nap
 
 # Build
 docker buildx build --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" --build-arg VCS_REF="$(git rev-parse --short HEAD)" --tag "${IMAGE_NAME}" --platform "${BUILDPLATFORM}" --file "${DOCKERFILE_PATH}" --push .

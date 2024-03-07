@@ -46,9 +46,9 @@ docker buildx build --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" --
 # Tag the local version so that we can push in the push script, should we choose
 docker tag ${IMAGE_NAME} ${OLD_IMAGE_NAME}
 
-docker logs -f registry
+docker logs registry
 
-docker logs -f multiarchbuilder
+docker logs multiarchbuilder
 
 # Confirm the build really was both archs
 #docker buildx inspect

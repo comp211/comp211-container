@@ -23,9 +23,9 @@ set -x
 
 # For this script, set the repo to nothing
 OLD_IMAGE_NAME=${IMAGE_NAME}
-DOCKER_REPO=`echo ${DOCKER_REPO} | sed -e "s/index.docker.io//"`
-DOCKER_IMAGE=`echo ${DOCKER_IMAGE} | sed -e "s/index.docker.io//"`
-IMAGE_NAME=`echo ${IMAGE_NAME} | sed -e "s/index.docker.io//"`
+DOCKER_REPO=`echo ${DOCKER_REPO} | sed -e "s/index.docker.io\///"`
+DOCKER_IMAGE=`echo ${DOCKER_IMAGE} | sed -e "s/index.docker.io\///"`
+IMAGE_NAME=`echo ${IMAGE_NAME} | sed -e "s/index.docker.io\///"`
 
 echo "### RUN build START: using buildx ###"
 echo "Image Name: ${IMAGE_NAME} (${DOCKER_IMAGE}) (Repo: ${DOCKER_REPO}, Tag: ${DOCKER_TAG})"

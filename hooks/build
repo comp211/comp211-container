@@ -5,16 +5,58 @@
 
 # '--push' shorthand for '--output=type=registry'
 
-set -ex
+set -x
+
+# DEP 2/29/24: Pushing to the local registry can fail for PR from a forked repo.
+# The original script I copied does the push to docker hub here, and makes
+# the push script a no-op.  This is not ideal, but harmless with the 'this' tag.
+#
+# Unfortunately, when someone creates a PR from a forked repo, this
+# push fails with a credential issue.  Probably a good idea for
+# security, but also causes the build test to fail.
+#
+# This step pushes to a local registry during build.
+#
+# If anyone wants to change this in the future, be aware during
+# testing.  The old behavior (pushing directly to docker hub) works
+# just fine on a PR from a local branch.
+
+# For this script, set the repo to nothing
+OLD_IMAGE_NAME=${IMAGE_NAME}
+DOCKER_REPO=`echo ${DOCKER_REPO} | sed -e "s/index.docker.io\///"`
+DOCKER_IMAGE=`echo ${DOCKER_IMAGE} | sed -e "s/index.docker.io\///"`
+IMAGE_NAME=`echo ${IMAGE_NAME} | sed -e "s/index.docker.io\///"`
 
 echo "### RUN build START: using buildx ###"
-echo "Image Name: ${IMAGE_NAME} (Repo: ${DOCKER_REPO}, Tag: ${DOCKER_TAG})"
+echo "Image Name: ${IMAGE_NAME} (${DOCKER_IMAGE}) (Repo: ${DOCKER_REPO}, Tag: ${DOCKER_TAG})"
 echo "Dockerfile Path/Name: ${DOCKERFILE_PATH}"
 BUILDPLATFORM="${BUILDPLATFORM:-"linux/amd64,linux/arm64"}"
 echo "Architectures=${BUILDPLATFORM}"
 
-# Ok to push, since a test build has 'this' tag, which is harmless
+docker ps
+docker images
+
+cat /etc/hosts
+
+whoami
+
+apt-get install net-tools
+
+netstat -nap
+
+iptables -S
+
+sleep 5
+
+cat /etc/hosts
+
+netstat -nap
+
+# Build
 docker buildx build --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" --build-arg VCS_REF="$(git rev-parse --short HEAD)" --tag "${IMAGE_NAME}" --platform "${BUILDPLATFORM}" --file "${DOCKERFILE_PATH}" --push .
+
+# Tag the local version so that we can push in the push script, should we choose
+docker tag ${IMAGE_NAME} ${OLD_IMAGE_NAME}
 
 # Confirm the build really was both archs
 #docker buildx inspect

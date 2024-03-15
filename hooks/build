@@ -40,8 +40,6 @@ cat /etc/hosts
 
 whoami
 
-apt-get install net-tools
-
 netstat -nap
 
 iptables -S

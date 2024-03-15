@@ -9,6 +9,10 @@ echo "### RUN pre_build START: QEMU and buildx ###"
 
 echo "Starting registry"
 
+apt-get install net-tools
+
+netstat -nap
+
 # Start the local registry
 docker run -p 5000:5000 -d --rm --name registry registry:2
 

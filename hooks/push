@@ -4,4 +4,7 @@
 
 set -ex
 
-echo "### RUN push: This has already been done by buildx. ###"
+# Rebuild and push.  Maybe something will be cached, but rebuilding is
+# the only reliable way to navigate permissions in the docker hub autobuild
+# environment
+docker buildx build --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" --build-arg VCS_REF="$(git rev-parse --short HEAD)" --tag "${IMAGE_NAME}" --platform "${BUILDPLATFORM}" --file "${DOCKERFILE_PATH}" --push .

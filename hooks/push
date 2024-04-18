@@ -4,6 +4,12 @@
 
 set -ex
 
+echo "### RUN build and push START: using buildx ###"
+echo "Image Name: ${IMAGE_NAME} (Repo: ${DOCKER_REPO}, Tag: ${DOCKER_TAG})"
+echo "Dockerfile Path/Name: ${DOCKERFILE_PATH}"
+BUILDPLATFORM="${BUILDPLATFORM:-"linux/amd64,linux/arm64"}"
+echo "Architectures=${BUILDPLATFORM}"
+
 # Rebuild and push.  Maybe something will be cached, but rebuilding is
 # the only reliable way to navigate permissions in the docker hub autobuild
 # environment

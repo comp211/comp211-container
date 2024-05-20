@@ -31,7 +31,7 @@ RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get
 	nodejs \
 	npm \
 	pandoc \
-	python3\
+	python3 \
 	python3-dev \
 	python3-full \	
 	python3-pip \

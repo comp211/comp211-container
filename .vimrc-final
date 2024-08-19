@@ -26,6 +26,8 @@ set shiftwidth=4
 set expandtab
 set relativenumber
 set number
+set ignorecase
+set smartcase       " See https://vim.fandom.com/wiki/Searching#Case_sensitivity
 set encoding=utf-8 " For YouCompleteMe
 set laststatus=2 " For lightline.vim
 set t_u7= " Weird workaround
@@ -44,6 +46,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:EasyMotion_smartcase = 1
 let g:clang_format#code_style = "chromium" " The only predefined style with PointerAlignment Left
 let g:clang_format#style_options = {
     \ "IndentWidth" : 4,

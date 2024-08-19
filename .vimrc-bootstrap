@@ -23,6 +23,8 @@ set shiftwidth=4
 set expandtab
 set relativenumber
 set number
+set ignorecase
+set smartcase       " See https://vim.fandom.com/wiki/Searching#Case_sensitivity
 set t_u7= " Weird workaround
 set t_RV=
 

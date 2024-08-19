@@ -71,10 +71,13 @@ ADD [".vimrc-final", "/root/.vimrc"]
 ADD [".emacs", "/root/.emacs"]
 
 ADD ["bin/*", "/usr/local/bin"]
+RUN chmod +x /usr/local/bin/*
 
 ADD [".vimrc-global-ycm", "/root/.vimrc"]
 ADD [".ycm_extra_conf.py", "/root/.ycm_extra_conf.py"]
 
+# clang-format-all find-dominating-file only goes up directories so would miss /root/.clang-format
+ADD [".clang-format", "/.clang-format"]
 ADD [".clang-format", "/root/.clang-format"]
 
 # Fix the locale for the manual pages

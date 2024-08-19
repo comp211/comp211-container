@@ -13,12 +13,15 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'morhetz/gruvbox'
 Plugin 'itchyny/lightline.vim'
 Plugin 'rhysd/vim-clang-format'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'easymotion/vim-easymotion'
 call vundle#end()
 
 filetype plugin indent on
 set tabstop=4
 set shiftwidth=4
 set expandtab
+set relativenumber
 set number
 set t_u7= " Weird workaround
 set t_RV=

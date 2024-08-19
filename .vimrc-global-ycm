@@ -15,6 +15,8 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'morhetz/gruvbox'
 Plugin 'itchyny/lightline.vim'
 Plugin 'rhysd/vim-clang-format'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'easymotion/vim-easymotion'
 call vundle#end()
 
 filetype plugin indent on
@@ -22,6 +24,7 @@ syntax on
 set tabstop=4
 set shiftwidth=4
 set expandtab
+set relativenumber
 set number
 set encoding=utf-8 " For YouCompleteMe
 set laststatus=2 " For lightline.vim
@@ -49,6 +52,9 @@ let g:clang_format#style_options = {
 
 " Map leader key <Leader> to Space
 let mapleader = " "
+" 2-character search motion, similar to vim-sneak
+nmap <Leader>s <Plug>(easymotion-s2)
+nmap <Leader>t <Plug>(easymotion-t2)
 " map to <Leader>cf in C++ code
 autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>

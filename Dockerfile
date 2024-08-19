@@ -75,6 +75,8 @@ ADD ["bin/*", "/usr/local/bin"]
 ADD [".vimrc-global-ycm", "/root/.vimrc"]
 ADD [".ycm_extra_conf.py", "/root/.ycm_extra_conf.py"]
 
+ADD [".clang-format", "/root/.clang-format"]
+
 # Fix the locale for the manual pages
 RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen

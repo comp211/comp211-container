@@ -25,7 +25,7 @@ Usage: $(basename $0) [-h] DIR...
     -h, --help      Display this help message and exit
 
 Formats *.c, *.cc, *.cpp, *.h, *.hh, *.hpp files in DIR(s) using clang-format
-This command uses the settings in the .clang-format file closest to the given filepath, likely /mnt/learncli/.clang-format (changes persist) or /.clang-format (changes won't persist)
+This command uses the settings in the .clang-format file closest to DIR(s) (starting at DIR, then its parents), likely /mnt/learncli/.clang-format (changes persist) or /.clang-format (changes won't persist)
 EOF
 }
 

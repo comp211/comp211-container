@@ -19,12 +19,24 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 function usage {
-    echo "Usage: $(basename $0) DIR..."
-    exit 1
+    cat <<EOF
+Usage: $(basename $0) [-h] DIR...
+
+    -h, --help      Display this help message and exit
+
+Formats *.c, *.cc, *.cpp, *.h, *.hh, *.hpp files in DIR(s) using clang-format
+This command uses the settings in the .clang-format file closest to the given filepath, likely /mnt/learncli/.clang-format (changes persist) or /.clang-format (changes won't persist)
+EOF
 }
 
 if [ $# -eq 0 ]; then
     usage
+    exit 1
+fi
+
+if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    usage
+    exit 0
 fi
 
 # Variable that will hold the name of the clang-format command
@@ -52,6 +64,7 @@ for dir in "$@"; do
     if [ ! -d "${dir}" ]; then
         echo "${dir} is not a directory"
         usage
+        exit 1
     fi
 done
 

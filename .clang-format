@@ -1,5 +1,8 @@
 ---
+# clang-format-all uses this file (at /.clang-format and /root/.clang-format) as a fallback
+# If you want different settings that persist, you need to edit /mnt/learncli/.clang-format
+# clang-format-all will find /mnt/learncli/.clang-format before this one for files in a subdirectory of learncli
 BasedOnStyle: Google
-# to match Vim settings
+# To match Vim settings
 IndentWidth: 4
 ObjCBlockIndentWidth: 4

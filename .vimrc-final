@@ -47,7 +47,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:EasyMotion_smartcase = 1
-let g:clang_format#code_style = "chromium" " The only predefined style with PointerAlignment Left
+let g:clang_format#code_style = "google"
 let g:clang_format#style_options = {
     \ "IndentWidth" : 4,
     \ "ObjCBlockIndentWidth": 4}

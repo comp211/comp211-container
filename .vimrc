@@ -66,13 +66,17 @@ let g:clang_format#style_options = {
     \ "ObjCBlockIndentWidth": 4}
 
 " Ctrl + O brings up a file menu
-" To learn how to use it, see https://github.com/preservim/nerdtree?tab=readme-ov-file#getting-started
-" And/or search for a NERDTree guide
+" To learn how to use NERDTree, see https://github.com/preservim/nerdtree?tab=readme-ov-file#getting-started
+" and/or search for a guide
 " Also, for tabs and window splitting, see https://gist.github.com/Starefossen/5957088
 map <C-o> :NERDTreeToggle<CR>
 
 " Map leader key <Leader> to Space
+" <Leader> is used in EasyMotion and can be used in other plugins
 let mapleader = " "
+
+" EasyMotion tutorial: https://www.barbarianmeetscoding.com/boost-your-coding-fu-with-vscode-and-vim/moving-even-faster-with-vim-sneak-and-easymotion/#vim-easymotion
+" and/or search for a guide
 " 2-character search motion, similar to vim-sneak
 nmap <Leader>s <Plug>(easymotion-s2)
 nmap <Leader>t <Plug>(easymotion-t2)

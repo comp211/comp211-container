@@ -59,6 +59,7 @@ ADD [".bashrc", "/root/"]
 RUN useradd -ms /bin/bash rameses
 USER rameses
 RUN mkdir -p ~/.vim/bundle
+# If .vimrc is used here, not the bootstrap version, PluginInstall never ends
 ADD --chown=rameses .vimrc-bootstrap /home/rameses/.vimrc
 RUN git clone https://github.com/VundleVim/Vundle.vim.git /home/rameses/.vim/bundle/Vundle.vim
 RUN vim -c 'PluginInstall' -c 'qa!'
@@ -67,13 +68,12 @@ RUN cd ~/.vim/bundle/YouCompleteMe/ && python3 install.py --clang-completer
 USER root
 RUN mv /home/rameses/.vim /root/.vim
 RUN chown -R root.root /root/.vim
-ADD [".vimrc-final", "/root/.vimrc"]
+ADD [".vimrc", "/root/.vimrc"]
 ADD [".emacs", "/root/.emacs"]
 
 ADD ["bin/*", "/usr/local/bin"]
 RUN chmod +x /usr/local/bin/*
 
-ADD [".vimrc-global-ycm", "/root/.vimrc"]
 ADD [".ycm_extra_conf.py", "/root/.ycm_extra_conf.py"]
 
 ADD [".clang-format", "/.clang-format"]

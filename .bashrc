@@ -157,3 +157,12 @@ then
     mkdir -p "${hostdir}/bin" 
 fi
 export PATH="${PATH}:${hostdir}/bin"
+
+# To allow persistent vimrc modifications,
+# copy from .vimrc on host to ~/.vimrc
+# and install plugins in subshell in background, suppressing output
+hostvimrc="${hostdir}/.vimrc"
+if [ -f "$hostvimrc" ]; then
+    cp "$hostvimrc" ~/.vimrc
+    (vim -c -es 'PluginInstall' -c -es 'qa!' </dev/null >/dev/null 2>&1 &)
+fi

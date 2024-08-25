@@ -72,7 +72,11 @@ ADD [".vimrc", "/root/.vimrc"]
 ADD [".emacs", "/root/.emacs"]
 
 ADD ["bin/*", "/usr/local/bin"]
+RUN chmod +x /usr/local/bin/*
+
 ADD [".ycm_extra_conf.py", "/root/.ycm_extra_conf.py"]
+
+ADD [".clang-format", "/.clang-format"]
 
 # Fix the locale for the manual pages
 RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment

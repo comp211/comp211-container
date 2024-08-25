@@ -1,0 +1,12 @@
+---
+# clang-format-all uses the settings in the closest .clang-format file to the file being formatted
+# It starts from that file's directory and moves up directories until it finds .clang-format
+# So, /.clang-format will always be found (i.e., default settings)
+# However, if you edit /.clang-format, changes will be cleared when the container is restarted
+# To make changes that persist, you need to create or edit /mnt/learncli/.clang-format
+# Create with cp /.clang-format /mnt/learncli/.clang-format
+# Then, clang-format-all will use /mnt/learncli/.clang-format for all files in /mnt/learncli and its subdirectories
+BasedOnStyle: Google
+# To match Vim settings
+IndentWidth: 4
+ObjCBlockIndentWidth: 4

@@ -1,8 +1,11 @@
-" If this file is /root/.vimrc, changes will be cleared once you end your Docker session
-" To edit and make changes apply in the next session, edit /mnt/learncli/.vimrc
-" In the current session, to allow vim to discover the changes made, copy /mnt/learncli/.vimrc to /root/.vimrc
+" Vim looks for settings in ~/.vimrc (which is /root/.vimrc)
+" However, if you edit /root/.vimrc, changes will be cleared when the container is restarted
+" To make changes that apply in the next session and persist afterward, create or edit /mnt/learncli/.vimrc, which ~/.bashrc automatically copies to ~/.vimrc on startup
+" To create, run cp /root/.vimrc /mnt/learncli/.vimrc
+" While editing, to be able to test your changes, you can edit /root/.vimrc so that Vim can see the changes
+" But copy /root/.vimrc to /mnt/learncli/.vimrc before exiting the container, or the changes will be lost
 " This file is heavily documented, and some keybinds are near the bottom
-" If you edit this file and break some configuration, just roll back to the original vimrc
+" If you break some configuration while editing, just roll back to the original .vimrc
 
 set nocompatible
 
@@ -65,10 +68,10 @@ let g:clang_format#style_options = {
     \ "IndentWidth" : 4,
     \ "ObjCBlockIndentWidth": 4}
 
-" Ctrl + O brings up a file menu
-" NERDTree guide: https://github.com/preservim/nerdtree?tab=readme-ov-file#getting-started
-" and/or Google about it
-" Also, for tabs and window splitting, see https://gist.github.com/Starefossen/5957088
+" Ctrl + O brings up a file menu via the NERDTree plugin
+" NERDTree guide: In Vim, open NERDTree with Ctrl + O, then press ? on your keyboard
+" Access more complete documentation within Vim by typing the command :help NERDTree
+" For tabs and window splitting, see https://gist.github.com/Starefossen/5957088
 map <C-o> :NERDTreeToggle<CR>
 
 " Map leader key <Leader> to Space

@@ -68,10 +68,12 @@ let g:clang_format#style_options = {
     \ "IndentWidth" : 4,
     \ "ObjCBlockIndentWidth": 4}
 
-" Ctrl + O brings up a file menu via the NERDTree plugin
-" NERDTree guide: In Vim, open NERDTree with Ctrl + O, then press ? on your keyboard
+" Ctrl + o brings up a file explorer menu via the NERDTree plugin
+" NERDTree guide: In Vim, open NERDTree, then press the ? key
 " Access more complete documentation within Vim by typing the command :help NERDTree
-" For tabs and window splitting, see https://gist.github.com/Starefossen/5957088
+" To create window splits and navigate among them, see https://gist.github.com/Starefossen/5957088
+" Buffers are analogous to tabs in IDE's
+" Read about buffers at https://dev.to/iggredible/a-faster-vim-workflow-with-buffers-and-args-51kf
 map <C-o> :NERDTreeToggle<CR>
 
 " Map leader key <Leader> to Space

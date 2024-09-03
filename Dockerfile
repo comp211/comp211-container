@@ -85,6 +85,8 @@ RUN echo "LANG=en_US.UTF-8" > /etc/locale.conf
 RUN locale-gen en_US.UTF-8
 
 # Takes approximately 30 seconds when building container
+# This is not cached when building locally, so if you are doing so, please comment this out
+# Perhaps put Dockerfile into .git/info/exclude
 RUN tldr --update
 
 CMD ["bash"]

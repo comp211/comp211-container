@@ -70,6 +70,7 @@ RUN mv /home/rameses/.vim /root/.vim
 RUN chown -R root.root /root/.vim
 ADD [".vimrc-final", "/root/.vimrc"]
 ADD [".emacs", "/root/.emacs"]
+ADD [".clang-format-ignore", "/.clang-format-ignore"]
 
 ADD ["bin/*", "/usr/local/bin"]
 

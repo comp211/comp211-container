@@ -1,6 +1,6 @@
 FROM ubuntu:24.04
 
-RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+RUN yes | apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	bc \
 	build-essential \
 	clang \

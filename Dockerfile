@@ -6,6 +6,7 @@ RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get
 	clang \
 	clang-format \
 	cmake \
+	cpu-checker \
 	curl \
 	dc \
 	default-jdk \
@@ -31,9 +32,11 @@ RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get
 	nodejs \
 	npm \
 	pandoc \
+	python-is-python3 \
 	python3 \
 	python3-dev \
 	python3-pip \
+	qemu-system-x86 \
 	software-properties-common \
 	texlive-latex-base \
 	texlive-latex-recommended \

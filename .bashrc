@@ -87,11 +87,6 @@ alias l='ls -CF'
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-# Usage: format-c <directory>
-format-c() {
-    find "$1" -iname "*.h" -o -iname "*.c" | xargs clang-format -i --style="{BasedOnStyle: chromium, IndentWidth: 4, ObjCBlockIndentWidth: 4}"
-}
-
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -157,3 +152,12 @@ then
     mkdir -p "${hostdir}/bin" 
 fi
 export PATH="${PATH}:${hostdir}/bin"
+
+# To allow persistent vimrc modifications,
+# copy from .vimrc on host to ~/.vimrc
+# and install plugins in subshell in background, suppressing output
+hostvimrc="${hostdir}/.vimrc"
+if [ -f "$hostvimrc" ]; then
+    cp "$hostvimrc" ~/.vimrc
+    (vim -c -es 'PluginInstall' -c -es 'qa!' </dev/null >/dev/null 2>&1 &)
+fi

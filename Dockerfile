@@ -6,6 +6,7 @@ RUN yes | apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	clang \
 	clang-format \
 	cmake \
+	cpu-checker \
 	curl \
 	dc \
 	default-jdk \
@@ -31,10 +32,12 @@ RUN yes | apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	nodejs \
 	npm \
 	pandoc \
+	python-is-python3 \
 	python3 \
 	python3-dev \
 	python3-full \	
 	python3-pip \
+	qemu-system-x86 \
 	software-properties-common \
 	texlive-latex-base \
 	texlive-latex-recommended \
@@ -60,6 +63,7 @@ ADD [".bashrc", "/root/"]
 RUN useradd -ms /bin/bash rameses
 USER rameses
 RUN mkdir -p ~/.vim/bundle
+# If .vimrc is used here, not .vimrc-bootstrap, PluginInstall never ends
 ADD --chown=rameses .vimrc-bootstrap /home/rameses/.vimrc
 RUN git clone https://github.com/VundleVim/Vundle.vim.git /home/rameses/.vim/bundle/Vundle.vim
 RUN vim -c 'PluginInstall' -c 'qa!'
@@ -68,14 +72,16 @@ RUN cd ~/.vim/bundle/YouCompleteMe/ && python3 install.py --clang-completer
 USER root
 RUN mv /home/rameses/.vim /root/.vim
 RUN chown -R root.root /root/.vim
-ADD [".vimrc-final", "/root/.vimrc"]
+ADD [".vimrc", "/root/.vimrc"]
 ADD [".emacs", "/root/.emacs"]
 ADD [".clang-format-ignore", "/.clang-format-ignore"]
 
 ADD ["bin/*", "/usr/local/bin"]
+RUN chmod +x /usr/local/bin/*
 
-ADD [".vimrc-global-ycm", "/root/.vimrc"]
 ADD [".ycm_extra_conf.py", "/root/.ycm_extra_conf.py"]
+
+ADD [".clang-format", "/.clang-format"]
 
 # Fix the locale for the manual pages
 RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
@@ -83,6 +89,9 @@ RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 RUN echo "LANG=en_US.UTF-8" > /etc/locale.conf
 RUN locale-gen en_US.UTF-8
 
+# Takes approximately 30 seconds when building container
+# This is not cached when building locally, so if you are doing so, please comment this out
+# Perhaps put Dockerfile into .git/info/exclude
 RUN tldr --update
 
 CMD ["bash"]

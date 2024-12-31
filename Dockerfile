@@ -1,6 +1,8 @@
 FROM ubuntu:24.04
 
-RUN yes | apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+RUN yes | apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y unminimize
+
+RUN yes | unminimize && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	bc \
 	build-essential \
 	clang \
@@ -35,7 +37,7 @@ RUN yes | apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	python-is-python3 \
 	python3 \
 	python3-dev \
-	python3-full \	
+	python3-full \
 	python3-pip \
 	qemu-system-x86 \
 	software-properties-common \

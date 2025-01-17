@@ -1,6 +1,8 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
-RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+RUN yes | apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y unminimize
+
+RUN yes | unminimize && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	bc \
 	build-essential \
 	clang \
@@ -35,6 +37,7 @@ RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get
 	python-is-python3 \
 	python3 \
 	python3-dev \
+	python3-full \
 	python3-pip \
 	qemu-system-x86 \
 	software-properties-common \
@@ -52,7 +55,7 @@ RUN yes | unminimize && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get
 
 RUN npm install -g typescript ts-node tldr
 
-RUN pip3 install subprocess32 gradescope-utils
+RUN PIP_BREAK_SYSTEM_PACKAGES=1 pip3 install subprocess32 gradescope-utils
 
 ADD [".bashrc", "/root/"]
 
@@ -73,6 +76,7 @@ RUN mv /home/rameses/.vim /root/.vim
 RUN chown -R root.root /root/.vim
 ADD [".vimrc", "/root/.vimrc"]
 ADD [".emacs", "/root/.emacs"]
+ADD [".clang-format-ignore", "/.clang-format-ignore"]
 
 ADD ["bin/*", "/usr/local/bin"]
 RUN chmod +x /usr/local/bin/*
